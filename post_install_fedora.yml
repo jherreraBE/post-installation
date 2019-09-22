@@ -121,19 +121,19 @@
                - java-openjdk
   
   - name: Install msttcorefonts
-    script: /media/data/Scripts/post-installation/scripts/msttcorefonts.sh
+    script: /home/jonay/post-installation/scripts/msttcorefonts.sh
 
   - name: Install spotify 
-    script: /media/data/Scripts/post-installation/scripts/spotify.sh
+    script: /home/jonay/post-installation/scripts/spotify.sh
           
   - name: Install skype 
-    script: /media/data/Scripts/post-installation/scripts/skype.sh
+    script: /home/jonay/post-installation/scripts/skype.sh
 
   - name: Install ioscheduler 
-    script: /media/data/Scripts/post-installation/scripts/ioscheduler.sh
+    script: /home/jonay/post-installation/scripts/ioscheduler.sh
 
   - name: Install color prompt 
-    script: /media/data/Scripts/post-installation/scripts/color_prompt.sh
+    script: /home/jonay/post-installation/scripts/color_prompt.sh
 
   - name: Install Gnome themes
     package:
@@ -171,7 +171,7 @@
               - nautilus-extensions.x86_64
 
   - name: Install visual studio code 
-    script: /media/data/Scripts/post-installation/scripts/visualstudiocode.sh
+    script: /home/jonay/post-installation/scripts/visualstudiocode.sh
 
   - name: Install Powerline Software
     package:
