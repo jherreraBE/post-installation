@@ -1,0 +1,189 @@
+- hosts: localhost
+  tasks:
+  - name: Enable Fusion rpm repository (free)
+    shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
+  - name: Enable Fusion rpm  repository (non-free)
+    shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
+  - name: Install google fonts
+    package:
+            name: google-droid-*
+            state: present
+  - name: Install  filezilla
+    package:
+            name: filezilla
+            state: present
+  - name: Install  deluge
+    package:
+            name: deluge
+            state: present
+  - name: Install  gimp
+    package:
+            name: gimp
+            state: present
+  - name: Install gimp-data-extras
+    package:
+            name: gimp-data-extras
+            state: present
+  - name: Install  thunderbird
+    package:
+            name: thunderbird
+            state: present
+  - name: Install  geary
+    package:
+            name: geary
+            state: present
+  - name: Install Multi Media Software
+    package:
+            name: "{{ item }}"
+            state: present
+    loop:
+            - gstreamer-plugins-bad
+            - gstreamer-plugins-bad-free-extras
+            - gstreamer-plugins-bad-nonfree
+            - gstreamer-plugins-ugly
+            - gstreamer-ffmpeg
+            - gstreamer1-libav
+            - gstreamer1-plugins-bad-free-extras
+            - gstreamer1-plugins-bad-freeworld
+            - gstreamer1-plugins-base-tools
+            - gstreamer1-plugins-good-extras
+            - gstreamer1-plugins-ugly
+            - gstreamer1-plugins-bad-free
+            - gstreamer1-plugins-good
+            - gstreamer1-plugins-base
+            - gstreamer1
+            - audacious.x86_64
+            - audacity-freeworld
+            - vlc
+            - audacious-plugins-freeworld.x86_64
+            - transmission
+            - alsa-plugins-pulseaudio
+            - youtube-dl
+
+  - name: Install  Printer Software
+    package:
+            name: "{{ item }}"
+            state: present
+    loop:
+            - hplip-gui
+            - cups-pdf
+            - hplip-common  
+
+  - name: Install system tools 
+    package:
+            name: "{{ item }}"
+            state: present
+    loop:
+            - htop
+            - libcurl
+            - vim  
+            - liveusb-creator
+            - gnome-tweak-tool
+            - dconf-editor 
+            - nmap
+            - inxi.noarch  
+            - glances
+            - neofetch
+            - screenfetch
+
+  - name: Install smartcard Software
+    package:
+               name: "{{ item }}"
+               state: present
+    loop: 
+               - pcsc-lite.x86_64
+               - pcsc-tools.x86_64
+               - pcsc-lite-ccid.x86_64
+
+  - name: Install Archive Software
+    package:
+               name: "{{ item }}"
+               state: present
+    loop: 
+               - cabextract 
+               - lzip
+               - p7zip
+               - p7zip-plugins
+               - unrar  
+
+  - name: Install Development libraries and  Tools
+    package:
+               name: "{{ item }}"
+               state: present
+    loop:
+               - kernel-devel
+               - dkms
+               - kernel-headers
+               - make
+               - gcc
+               - gcc-c++
+               - icedtea-web
+               - java-openjdk
+  
+  - name: Install msttcorefonts
+    script: /media/data/Scripts/post-installation/scripts/msttcorefonts.sh
+
+  - name: Install spotify 
+    script: /media/data/Scripts/post-installation/scripts/spotify.sh
+          
+  - name: Install skype 
+    script: /media/data/Scripts/post-installation/scripts/skype.sh
+
+  - name: Install ioscheduler 
+    script: /media/data/Scripts/post-installation/scripts/ioscheduler.sh
+
+  - name: Install color prompt 
+    script: /media/data/Scripts/post-installation/scripts/color_prompt.sh
+
+  - name: Install Gnome themes
+    package:
+               name: "{{ item }}"
+               state: present
+    loop:
+               - arc-theme
+                 # - arc-icon-theme
+               - gtk-murrine-engine
+               - gtk-unico-engine
+               - numix-icon-theme
+               - numix-icon-theme-circle
+               - numix-gtk-theme
+
+  - name: Install  Gnome Extensions
+    package:
+              name: "{{ item }}"
+              state: present
+    loop:
+              - gnome-shell-extension-user-theme.noarch
+              - gnome-shell-extension-gsconnect.x86_64
+              - gnome-shell-extension-dash-to-dock.noarch
+              - gnome-shell-extension-topicons-plus.noarch
+
+  - name: Install Nautilius (Files) extentions 
+    package:
+              name: "{{ item }}"
+              state: present
+    loop:
+              - gnome-terminal-nautilus.x86_64
+              - nautilus-image-converter.x86_64
+              - file-roller-nautilus.x86_64
+              - nautilus-sendto.x86_64
+              - nautilus-gsconnect.noarch
+              - nautilus-extensions.x86_64
+
+  - name: Install visual studio code 
+    script: /media/data/Scripts/post-installation/scripts/visualstudiocode.sh
+
+  - name: Install Powerline Software
+    package:
+               name: "{{ item }}"
+               state: present
+    loop: 
+               - powerline 
+               - powerline-fonts
+               - vim-powerline
+               - tmux-powerline  
+
+  - name: Install Firewalld GUI
+    package: 
+            name: firewall-config
+            state: present
