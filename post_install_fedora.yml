@@ -38,7 +38,7 @@
             state: present
     loop:
             - gstreamer-plugins-bad
-            - gstreamer-plugins-bad-free-extras
+#            - gstreamer-plugins-bad-free-extras
             - gstreamer-plugins-bad-nonfree
             - gstreamer-plugins-ugly
             - gstreamer-ffmpeg
