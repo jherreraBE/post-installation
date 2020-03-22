@@ -8,34 +8,42 @@
     package:
             name: google-droid-*
             state: present
+    ignore_errors: yes
   - name: Install  filezilla
     package:
             name: filezilla
             state: present
+    ignore_errors: yes
   - name: Install  deluge
     package:
             name: deluge
             state: present
+    ignore_errors: yes
   - name: Install  gimp
     package:
             name: gimp
             state: present
+    ignore_errors: yes
   - name: Install gimp-data-extras
     package:
             name: gimp-data-extras
             state: present
+    ignore_errors: yes
   - name: Install  thunderbird
     package:
             name: thunderbird
             state: present
+    ignore_errors: yes
   - name: Install  geary
     package:
             name: geary
             state: present
+    ignore_errors: yes
   - name: Install Multi Media Software
     package:
             name: "{{ item }}"
             state: present
+    ignore_errors: yes
     loop:
             - gstreamer-plugins-bad
 #            - gstreamer-plugins-bad-free-extras
@@ -64,6 +72,7 @@
     package:
             name: "{{ item }}"
             state: present
+    ignore_errors: yes
     loop:
             - hplip-gui
             - cups-pdf
@@ -73,6 +82,7 @@
     package:
             name: "{{ item }}"
             state: present
+    ignore_errors: yes
     loop:
             - htop
             - libcurl
@@ -90,6 +100,7 @@
     package:
                name: "{{ item }}"
                state: present
+    ignore_errors: yes
     loop: 
                - pcsc-lite.x86_64
                - pcsc-tools.x86_64
@@ -99,6 +110,7 @@
     package:
                name: "{{ item }}"
                state: present
+    ignore_errors: yes
     loop: 
                - cabextract 
                - lzip
@@ -110,6 +122,7 @@
     package:
                name: "{{ item }}"
                state: present
+    ignore_errors: yes
     loop:
                - kernel-devel
                - dkms
@@ -122,23 +135,29 @@
   
   - name: Install msttcorefonts
     script: /home/jonay/post-installation/scripts/msttcorefonts.sh
+    ignore_errors: yes
 
   - name: Install spotify 
     script: /home/jonay/post-installation/scripts/spotify.sh
+    ignore_errors: yes
           
   - name: Install skype 
     script: /home/jonay/post-installation/scripts/skype.sh
+    ignore_errors: yes
 
   - name: Install ioscheduler 
     script: /home/jonay/post-installation/scripts/ioscheduler.sh
+    ignore_errors: yes
 
   - name: Install color prompt 
     script: /home/jonay/post-installation/scripts/color_prompt.sh
+    ignore_errors: yes
 
   - name: Install Gnome themes
     package:
                name: "{{ item }}"
                state: present
+    ignore_errors: yes
     loop:
                - arc-theme
                  # - arc-icon-theme
@@ -152,6 +171,7 @@
     package:
               name: "{{ item }}"
               state: present
+    ignore_errors: yes
     loop:
               - gnome-shell-extension-user-theme.noarch
               - gnome-shell-extension-gsconnect.x86_64
@@ -162,6 +182,7 @@
     package:
               name: "{{ item }}"
               state: present
+    ignore_errors: yes
     loop:
               - gnome-terminal-nautilus.x86_64
               - nautilus-image-converter.x86_64
@@ -172,11 +193,13 @@
 
   - name: Install visual studio code 
     script: /home/jonay/post-installation/scripts/visualstudiocode.sh
+    ignore_errors: yes
 
   - name: Install Powerline Software
     package:
                name: "{{ item }}"
                state: present
+    ignore_errors: yes
     loop: 
                - powerline 
                - powerline-fonts
@@ -187,3 +210,4 @@
     package: 
             name: firewall-config
             state: present
+    ignore_errors: yes
