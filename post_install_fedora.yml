@@ -9,42 +9,47 @@
            name: "*"
            state: latest
   - name: Install google fonts
-    package:
+    dnf:
             name: google-droid-*
             state: present
     ignore_errors: yes
   - name: Install  filezilla
-    package:
+    dnf:
             name: filezilla
             state: present
     ignore_errors: yes
   - name: Install  deluge
-    package:
+    dnf:
             name: deluge
             state: present
     ignore_errors: yes
   - name: Install  gimp
-    package:
+    dnf:
             name: gimp
             state: present
     ignore_errors: yes
+  - name: Install pinta 
+    dnf:
+            name: pinta
+            state: present
+    ignore_errors: yes
   - name: Install gimp-data-extras
-    package:
+    dnf:
             name: gimp-data-extras
             state: present
     ignore_errors: yes
   - name: Install  thunderbird
-    package:
+    dnf:
             name: thunderbird
             state: present
     ignore_errors: yes
   - name: Install  geary
-    package:
+    dnf:
             name: geary
             state: present
     ignore_errors: yes
   - name: Install Multi Media Software
-    package:
+    dnf:
             name: "{{ item }}"
             state: present
     ignore_errors: yes
@@ -73,7 +78,7 @@
             - youtube-dl
 
   - name: Install  Printer Software
-    package:
+    dnf:
             name: "{{ item }}"
             state: present
     ignore_errors: yes
@@ -83,7 +88,7 @@
             - hplip-common  
 
   - name: Install system tools 
-    package:
+    dnf:
             name: "{{ item }}"
             state: present
     ignore_errors: yes
@@ -101,7 +106,7 @@
             - screenfetch
 
   - name: Install smartcard Software
-    package:
+    dnf:
                name: "{{ item }}"
                state: present
     ignore_errors: yes
@@ -111,7 +116,7 @@
                - pcsc-lite-ccid.x86_64
 
   - name: Install Archive Software
-    package:
+    dnf:
                name: "{{ item }}"
                state: present
     ignore_errors: yes
@@ -123,7 +128,7 @@
                - unrar  
 
   - name: Install Development libraries and  Tools
-    package:
+    dnf:
                name: "{{ item }}"
                state: present
     ignore_errors: yes
@@ -158,7 +163,7 @@
     ignore_errors: yes
 
   - name: Install Gnome themes
-    package:
+    dnf:
                name: "{{ item }}"
                state: present
     ignore_errors: yes
@@ -172,7 +177,7 @@
                - numix-gtk-theme
 
   - name: Install  Gnome Extensions
-    package:
+    dnf:
               name: "{{ item }}"
               state: present
     ignore_errors: yes
@@ -183,7 +188,7 @@
               - gnome-shell-extension-topicons-plus.noarch
 
   - name: Install Nautilius (Files) extentions 
-    package:
+    dnf:
               name: "{{ item }}"
               state: present
     ignore_errors: yes
@@ -200,7 +205,7 @@
     ignore_errors: yes
 
   - name: Install Powerline Software
-    package:
+    dnf:
                name: "{{ item }}"
                state: present
     ignore_errors: yes
@@ -211,7 +216,7 @@
                - tmux-powerline  
 
   - name: Install Firewalld GUI
-    package: 
+    dnf: 
             name: firewall-config
             state: present
     ignore_errors: yes
