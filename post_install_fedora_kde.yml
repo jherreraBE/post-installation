@@ -1,0 +1,160 @@
+- hosts: localhost
+  tasks:
+  - name: Enable Fusion rpm repository (free)
+    shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
+  - name: Enable Fusion rpm  repository (non-free)
+    shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
+  - name: check and  update all  the upgradeble packages in the  system
+    dnf:
+           name: "*"
+           state: latest
+  - name: Install google fonts
+    dnf:
+            name: google-droid-*
+            state: present
+    ignore_errors: yes
+  - name: Install  filezilla
+    dnf:
+            name: filezilla
+            state: present
+    ignore_errors: yes
+  - name: Install ktorrent 
+    dnf:
+            name: ktorrent
+            state: present
+    ignore_errors: yes
+  - name: Install  gimp
+    dnf:
+            name: gimp
+            state: present
+    ignore_errors: yes
+  - name: Install gimp-data-extras
+    dnf:
+            name: gimp-data-extras
+            state: present
+    ignore_errors: yes
+  - name: Install  thunderbird
+    dnf:
+            name: thunderbird
+            state: present
+    ignore_errors: yes
+  - name: Install Multi Media Software
+    dnf:
+            name: "{{ item }}"
+            state: present
+    ignore_errors: yes
+    loop:
+            - gstreamer-plugins-bad
+#            - gstreamer-plugins-bad-free-extras
+            - gstreamer-plugins-bad-nonfree
+            - gstreamer-plugins-ugly
+            - gstreamer-ffmpeg
+            - gstreamer1-libav
+            - gstreamer1-plugins-bad-free-extras
+            - gstreamer1-plugins-bad-freeworld
+            - gstreamer1-plugins-base-tools
+            - gstreamer1-plugins-good-extras
+            - gstreamer1-plugins-ugly
+            - gstreamer1-plugins-bad-free
+            - gstreamer1-plugins-good
+            - gstreamer1-plugins-base
+            - gstreamer1
+            - audacious.x86_64
+            - audacity-freeworld
+            - vlc
+            - audacious-plugins-freeworld.x86_64
+            - alsa-plugins-pulseaudio
+            - youtube-dl
+
+  - name: Install  Printer Software
+    dnf:
+            name: "{{ item }}"
+            state: present
+    ignore_errors: yes
+    loop:
+            - hplip-gui
+            - cups-pdf
+            - hplip-common  
+
+  - name: Install system tools 
+    dnf:
+            name: "{{ item }}"
+            state: present
+    ignore_errors: yes
+    loop:
+            - htop
+            - libcurl
+            - vim  
+            - liveusb-creator
+            - nmap
+            - inxi.noarch  
+            - glances
+            - neofetch
+            - screenfetch
+
+  - name: Install smartcard Software
+    dnf:
+               name: "{{ item }}"
+               state: present
+    ignore_errors: yes
+    loop: 
+               - pcsc-lite.x86_64
+               - pcsc-tools.x86_64
+               - pcsc-lite-ccid.x86_64
+
+  - name: Install Archive Software
+    dnf:
+               name: "{{ item }}"
+               state: present
+    ignore_errors: yes
+    loop: 
+               - cabextract 
+               - lzip
+               - p7zip
+               - p7zip-plugins
+               - unrar  
+
+  - name: Install Development libraries and  Tools
+    dnf:
+               name: "{{ item }}"
+               state: present
+    ignore_errors: yes
+    loop:
+               - kernel-devel
+               - dkms
+               - kernel-headers
+               - make
+               - gcc
+               - gcc-c++
+               - icedtea-web
+               - java-openjdk
+  
+  - name: Install msttcorefonts
+    script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
+    ignore_errors: yes
+
+  - name: Install spotify 
+    script: /home/jherrera/post-installation/scripts/spotify.sh
+    ignore_errors: yes
+          
+  - name: Install skype 
+    script: /home/jherrera/post-installation/scripts/skype.sh
+    ignore_errors: yes
+
+  - name: Install ioscheduler 
+    script: /home/jherrera/post-installation/scripts/ioscheduler.sh
+    ignore_errors: yes
+
+  - name: Install color prompt 
+    script: /home/jherrera/post-installation/scripts/color_prompt.sh
+    ignore_errors: yes
+
+  - name: Install visual studio code 
+    script: /home/jherrera/post-installation/scripts/visualstudiocode.sh
+    ignore_errors: yes
+
+  - name: Install Firewalld GUI
+    dnf: 
+            name: firewall-config
+            state: present
+    ignore_errors: yes
