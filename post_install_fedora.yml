@@ -104,6 +104,7 @@
             - glances
             - neofetch
             - screenfetch
+            - hunspell-nl
 
   - name: Install smartcard Software
     dnf:
