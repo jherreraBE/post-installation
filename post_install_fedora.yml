@@ -142,15 +142,25 @@
                - gcc-c++
                - icedtea-web
                - java-openjdk
-  
+
+- name: Add the flathub flatpak repository remote to the installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Install multiple Flatpak packages
+  community.general.flatpak:
+    name:
+      - org.gimp.GIMP
+      - com.spotify.Client
+      - com.sindresorhus.Caprine
+      - io.bit3.WhatsAppQT
+
   - name: Install msttcorefonts
     script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
     ignore_errors: yes
 
-  - name: Install spotify 
-    script: /home/jherrera/post-installation/scripts/spotify.sh
-    ignore_errors: yes
-          
   - name: Install skype 
     script: /home/jherrera/post-installation/scripts/skype.sh
     ignore_errors: yes
@@ -186,7 +196,6 @@
               - gnome-shell-extension-user-theme.noarch
               - gnome-shell-extension-gsconnect.x86_64
               - gnome-shell-extension-dash-to-dock.noarch
-              - gnome-shell-extension-topicons-plus.noarch
 
   - name: Install Nautilius (Files) extentions 
     dnf:
