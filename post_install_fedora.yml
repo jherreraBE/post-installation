@@ -230,3 +230,16 @@
             name: firewall-config
             state: present
     ignore_errors: yes
+  - name: Configure Fastest mirror for DNF
+    lineinfile:
+            path: /etc/dnf/dnf.conf
+            line: "fastestmirror=1"
+            backup: "true"
+            ignore_errors: "yes"
+  
+  - name: Configure Maximum parallel downloads for  DNF
+    lineinfile:
+            path: /etc/dnf/dnf.conf
+            line: "max_parallel_downloads=10"
+            backup: "true"
+            ignore_errors: "yes"
