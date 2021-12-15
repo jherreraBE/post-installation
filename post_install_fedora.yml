@@ -76,6 +76,7 @@
             - transmission
             - alsa-plugins-pulseaudio
             - youtube-dl
+            - ffmpeg  
 
   - name: Install  Printer Software
     dnf:
