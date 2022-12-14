@@ -8,6 +8,36 @@
     dnf:
            name: "*"
            state: latest
+
+  - name: Add the flathub flatpak repository remote to the installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+
+  - name: Set the  hostname to Thunderbird
+    shell: "hostnamectl hostname thunderbird.local.net"
+    ignore_errors: yes
+
+  - name: Configure Fastest mirror for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "fastestmirror=1"
+        backup: "true"
+
+  - name: Configure Maximum parallel downloads for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "max_parallel_downloads=10"
+        backup: "true"
+
+  - name: Configure usage of delta rpms for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "deltarpm=true"
+        backup: "true"
+
   - name: Install google fonts
     dnf:
             name: google-droid-*
@@ -42,6 +72,27 @@
     dnf:
             name: thunderbird
             state: present
+    ignore_errors: yes
+  - name: Install Multimedia group
+    shell: 'dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y'
+    ignore_errors: yes
+  - name: Install Multimedia sound group
+    shell: "dnf groupupdate sound-and-video -y"
+    ignore_errors: yes
+  - name: Install gstreamer libs
+    shell: 'dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg -y'
+    ignore_errors: yes
+  - name: Install Multimedia lame
+    shell: 'dnf install lame\* --exclude=lame-devel -y'
+    ignore_errors: yes
+  - name: upgrade Multimedia group
+    shell: "dnf group upgrade --with-optional Multimedia -y"
+    ignore_errors: yes
+  - name: HW Video Decoding with VA-API
+    shell: "dnf install ffmpeg ffmpeg-libs libva libva-utils -y"
+    ignore_errors: yes
+  - name: install intel chipset media driver
+    shell: "dnf install intel-media-driver -y"
     ignore_errors: yes
   # - name: Install  geary
   #   dnf:
@@ -106,6 +157,7 @@
             - neofetch
             - screenfetch
             - hunspell-nl
+            - grub-customizer
 
   - name: Install smartcard Software
     dnf:
@@ -141,37 +193,19 @@
                - make
                - gcc
                - gcc-c++
-               - icedtea-web
                - java-openjdk
 
-  - name: Add the flathub flatpak repository remote to the installation
-    community.general.flatpak_remote:
-      name: flathub
-      state: present
-      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
-  - name: Install multiple Flatpak packages
-    community.general.flatpak:
-      name:
-        # - org.gimp.GIMP
-        # - com.spotify.Client
-        - com.sindresorhus.Caprine
-        - io.bit3.WhatsAppQT
 
   - name: Install msttcorefonts
-    script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/msttcorefonts.sh
     ignore_errors: yes
 
-  # - name: Install skype 
-  #   script: /home/jherrera/post-installation/scripts/skype.sh
-  #   ignore_errors: yes
-
   - name: Install ioscheduler 
-    script: /home/jherrera/post-installation/scripts/ioscheduler.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/ioscheduler.sh
     ignore_errors: yes
 
   - name: Install color prompt 
-    script: /home/jherrera/post-installation/scripts/color_prompt.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/color_prompt.sh
     ignore_errors: yes
 
   - name: Install Gnome themes
@@ -181,22 +215,11 @@
     ignore_errors: yes
     loop:
          - arc-theme
-         # - arc-icon-theme
          - gtk-murrine-engine
          - gtk-unico-engine
          - numix-icon-theme
          - numix-icon-theme-circle
          - numix-gtk-theme
-
-  - name: Install  Gnome Extensions
-    dnf:
-        name: "{{ item }}"
-        state: present
-    ignore_errors: yes
-    loop:
-          - gnome-shell-extension-user-theme.noarch
-          - gnome-shell-extension-gsconnect.x86_64
-          - gnome-shell-extension-dash-to-dock.noarch
 
   - name: Install Nautilius (Files) extentions 
     dnf:
@@ -210,10 +233,6 @@
           - nautilus-sendto.x86_64
           - nautilus-gsconnect.noarch
           - nautilus-extensions.x86_64
-
-  # - name: Install visual studio code 
-  #   script: /home/jherrera/post-installation/scripts/visualstudiocode.sh
-  #   ignore_errors: yes
 
   - name: Install Powerline Software
     dnf:
@@ -231,16 +250,3 @@
         name: firewall-config
         state: present
     ignore_errors: yes
-  - name: Configure Fastest mirror for DNF
-    lineinfile:
-        path: /etc/dnf/dnf.conf
-        line: "fastestmirror=1"
-        backup: "true"
-        ignore_errors: "yes"
-  
-  - name: Configure Maximum parallel downloads for  DNF
-    lineinfile:
-        path: /etc/dnf/dnf.conf
-        line: "max_parallel_downloads=10"
-        backup: "true"
-        ignore_errors: "yes"
