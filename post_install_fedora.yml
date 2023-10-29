@@ -158,6 +158,9 @@
             - screenfetch
             - hunspell-nl
             - grub-customizer
+            - tldr
+            - btop
+            - neovim
 
   - name: Install smartcard Software
     dnf:
