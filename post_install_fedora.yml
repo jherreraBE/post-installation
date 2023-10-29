@@ -1,7 +1,7 @@
 - hosts: localhost
   tasks:
   - name: Set the  hostname to Thunderbird
-    shell: "hostnamectl hostname fedora39.local.net"
+    shell: "hostnamectl hostname {{hostname}}.local.net"
     ignore_errors: yes
 
   - name: Configure Fastest mirror for DNF
