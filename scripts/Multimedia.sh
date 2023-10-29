@@ -5,3 +5,4 @@ sudo dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing -y
 sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg -y
 sudo dnf install lame\* --exclude=lame-devel -y
 sudo dnf group upgrade --with-optional Multimedia -y
+sudo dnf install intel-media-driver -y

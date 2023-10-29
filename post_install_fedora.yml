@@ -1,21 +1,5 @@
 - hosts: localhost
   tasks:
-  - name: Enable Fusion rpm repository (free)
-    shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
-  - name: Enable Fusion rpm  repository (non-free)
-    shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
-  - name: check and  update all  the upgradeble packages in the  system
-    dnf:
-           name: "*"
-           state: latest
-
-  - name: Add the flathub flatpak repository remote to the installation
-    community.general.flatpak_remote:
-      name: flathub
-      state: present
-      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
-
   - name: Set the  hostname to Thunderbird
     shell: "hostnamectl hostname fedora39.local.net"
     ignore_errors: yes
@@ -38,96 +22,149 @@
         line: "deltarpm=true"
         backup: "true"
 
-  - name: Install google fonts
+  - name: Enable Fusion rpm repository (free)
+    shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
+
+  - name: Enable Fusion rpm  repository (non-free)
+    shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
+    
+  - name: check and  update all  the upgradeble packages in the  system
     dnf:
-            name: google-droid-*
-            state: present
-    ignore_errors: yes
-  - name: Install  filezilla
+           name: "*"
+           state: latest
+
+  - name: Add the flathub flatpak repository remote to the installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: Install multiple Flatpak packages
+    community.general.flatpak:
+      name:
+        - com.bitwarden.desktop
+        - com.mattjakeman.ExtensionManager
+        - com.sindresorhus.Caprine
+        - com.spotify.Client
+        - dev.aunetx.deezer
+        - io.github.mimbrero.WhatsAppDesktop
+
+
+  - name: Install Software
     dnf:
-            name: filezilla
-            state: present
+          name: "{{ item }}"
+          state: present
     ignore_errors: yes
-  - name: Install  deluge
-    dnf:
-            name: deluge
-            state: present
-    ignore_errors: yes
-  - name: Install  gimp
-    dnf:
-            name: gimp
-            state: present
-    ignore_errors: yes
-  - name: Install pinta 
-    dnf:
-            name: pinta
-            state: present
-    ignore_errors: yes
-  - name: Install gimp-data-extras
-    dnf:
-            name: gimp-data-extras
-            state: present
-    ignore_errors: yes
-  - name: Install  thunderbird
-    dnf:
-            name: thunderbird
-            state: present
-    ignore_errors: yes
-  - name: Install Multimedia group
-    shell: 'dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y'
-    ignore_errors: yes
-  - name: Install Multimedia sound group
-    shell: "dnf groupupdate sound-and-video -y"
-    ignore_errors: yes
-  - name: Install gstreamer libs
-    shell: 'dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg -y'
-    ignore_errors: yes
-  - name: Install Multimedia lame
-    shell: 'dnf install lame\* --exclude=lame-devel -y'
-    ignore_errors: yes
-  - name: upgrade Multimedia group
-    shell: "dnf group upgrade --with-optional Multimedia -y"
-    ignore_errors: yes
-  - name: HW Video Decoding with VA-API
-    shell: "dnf install ffmpeg ffmpeg-libs libva libva-utils -y"
-    ignore_errors: yes
-  - name: install intel chipset media driver
-    shell: "dnf install intel-media-driver -y"
-    ignore_errors: yes
+    loop:
+          - google-droid-*
+          - filezilla
+          - deluge
+          - gimp
+          - pinta
+          - gimp-data-extras
+          - audacious.x86_64
+          - audacity-freeworld
+          - vlc
+          - audacious-plugins-freeworld.x86_64
+          - transmission
+          - alsa-plugins-pulseaudio
+          - youtube-dl
+          - ffmpeg
+          - firewall-config
+
+
+
+
+  # - name: Install google fonts
+  #   dnf:
+  #           name: google-droid-*
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install  filezilla
+  #   dnf:
+  #           name: filezilla
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install  deluge
+  #   dnf:
+  #           name: deluge
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install  gimp
+  #   dnf:
+  #           name: gimp
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install pinta 
+  #   dnf:
+  #           name: pinta
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install gimp-data-extras
+  #   dnf:
+  #           name: gimp-data-extras
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install  thunderbird
+  #   dnf:
+  #           name: thunderbird
+  #           state: present
+  #   ignore_errors: yes
+  # - name: Install Multimedia group
+  #   shell: 'dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y'
+  #   ignore_errors: yes
+  # - name: Install Multimedia sound group
+  #   shell: "dnf groupupdate sound-and-video -y"
+  #   ignore_errors: yes
+  # - name: Install gstreamer libs
+  #   shell: 'dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg -y'
+  #   ignore_errors: yes
+  # - name: Install Multimedia lame
+  #   shell: 'dnf install lame\* --exclude=lame-devel -y'
+  #   ignore_errors: yes
+  # - name: upgrade Multimedia group
+  #   shell: "dnf group upgrade --with-optional Multimedia -y"
+  #   ignore_errors: yes
+  # - name: HW Video Decoding with VA-API
+  #   shell: "dnf install ffmpeg ffmpeg-libs libva libva-utils -y"
+  #   ignore_errors: yes
+  # - name: install intel chipset media driver
+  #   shell: "dnf install intel-media-driver -y"
+  #   ignore_errors: yes
   # - name: Install  geary
   #   dnf:
   #           name: geary
   #           state: present
   #   ignore_errors: yes
-  - name: Install Multi Media Software
-    dnf:
-            name: "{{ item }}"
-            state: present
-    ignore_errors: yes
-    loop:
-#            - gstreamer-plugins-bad
-#            - gstreamer-plugins-bad-free-extras
-#            - gstreamer-plugins-bad-nonfree
-#            - gstreamer-plugins-ugly
-#            - gstreamer-ffmpeg
-#            - gstreamer1-libav
-#            - gstreamer1-plugins-bad-free-extras
-##            - gstreamer1-plugins-bad-freeworld
-#            - gstreamer1-plugins-base-tools
-#            - gstreamer1-plugins-good-extras
-#            - gstreamer1-plugins-ugly
-#            - gstreamer1-plugins-bad-free
-#            - gstreamer1-plugins-good
-#            - gstreamer1-plugins-base
-#            - gstreamer1
-            - audacious.x86_64
-            - audacity-freeworld
-            - vlc
-            - audacious-plugins-freeworld.x86_64
-            - transmission
-            - alsa-plugins-pulseaudio
-            - youtube-dl
-            - ffmpeg  
+#   - name: Install Multi Media Software
+#     dnf:
+#             name: "{{ item }}"
+#             state: present
+#     ignore_errors: yes
+#     loop:
+# #            - gstreamer-plugins-bad
+# #            - gstreamer-plugins-bad-free-extras
+# #            - gstreamer-plugins-bad-nonfree
+# #            - gstreamer-plugins-ugly
+# #            - gstreamer-ffmpeg
+# #            - gstreamer1-libav
+# #            - gstreamer1-plugins-bad-free-extras
+# ##            - gstreamer1-plugins-bad-freeworld
+# #            - gstreamer1-plugins-base-tools
+# #            - gstreamer1-plugins-good-extras
+# #            - gstreamer1-plugins-ugly
+# #            - gstreamer1-plugins-bad-free
+# #            - gstreamer1-plugins-good
+# #            - gstreamer1-plugins-base
+# #            - gstreamer1
+#             - audacious.x86_64
+#             - audacity-freeworld
+#             - vlc
+#             - audacious-plugins-freeworld.x86_64
+#             - transmission
+#             - alsa-plugins-pulseaudio
+#             - youtube-dl
+#             - ffmpeg  
 
               #  - name: Install  Printer Software
               #    dnf:
@@ -233,8 +270,8 @@
           - gnome-terminal-nautilus.x86_64
             #    - nautilus-image-converter.x86_64
           - file-roller-nautilus.x86_64
-          - nautilus-sendto.x86_64
-            #    - nautilus-gsconnect.noarch
+            #    - nautilus-sendto.x86_64
+          - nautilus-gsconnect.noarch
           - nautilus-extensions.x86_64
 
   - name: Install Powerline Software
@@ -248,11 +285,11 @@
           - vim-powerline
           - tmux-powerline  
 
-  - name: Install Firewalld GUI
-    dnf: 
-        name: firewall-config
-        state: present
-    ignore_errors: yes
+  # - name: Install Firewalld GUI
+  #   dnf: 
+  #       name: firewall-config
+  #       state: present
+  #   ignore_errors: yes
 
 ## finetuning desktop system:
   - name: Configure Wayland on gnome
