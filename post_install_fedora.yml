@@ -17,7 +17,7 @@
 
 
   - name: Set the  hostname to Thunderbird
-    shell: "hostnamectl hostname thunderbird.local.net"
+    shell: "hostnamectl hostname fedora39.local.net"
     ignore_errors: yes
 
   - name: Configure Fastest mirror for DNF
@@ -105,21 +105,21 @@
             state: present
     ignore_errors: yes
     loop:
-            - gstreamer-plugins-bad
+#            - gstreamer-plugins-bad
 #            - gstreamer-plugins-bad-free-extras
-            - gstreamer-plugins-bad-nonfree
-            - gstreamer-plugins-ugly
-            - gstreamer-ffmpeg
-            - gstreamer1-libav
-            - gstreamer1-plugins-bad-free-extras
-            - gstreamer1-plugins-bad-freeworld
-            - gstreamer1-plugins-base-tools
-            - gstreamer1-plugins-good-extras
-            - gstreamer1-plugins-ugly
-            - gstreamer1-plugins-bad-free
-            - gstreamer1-plugins-good
-            - gstreamer1-plugins-base
-            - gstreamer1
+#            - gstreamer-plugins-bad-nonfree
+#            - gstreamer-plugins-ugly
+#            - gstreamer-ffmpeg
+#            - gstreamer1-libav
+#            - gstreamer1-plugins-bad-free-extras
+##            - gstreamer1-plugins-bad-freeworld
+#            - gstreamer1-plugins-base-tools
+#            - gstreamer1-plugins-good-extras
+#            - gstreamer1-plugins-ugly
+#            - gstreamer1-plugins-bad-free
+#            - gstreamer1-plugins-good
+#            - gstreamer1-plugins-base
+#            - gstreamer1
             - audacious.x86_64
             - audacity-freeworld
             - vlc
@@ -129,15 +129,15 @@
             - youtube-dl
             - ffmpeg  
 
-  - name: Install  Printer Software
-    dnf:
-            name: "{{ item }}"
-            state: present
-    ignore_errors: yes
-    loop:
-            - hplip-gui
-            - cups-pdf
-            - hplip-common  
+              #  - name: Install  Printer Software
+              #    dnf:
+              #            name: "{{ item }}"
+              #            state: present
+              #    ignore_errors: yes
+              #    loop:
+              #            - hplip-gui
+              #            - cups-pdf
+              #            - hplip-common  
 
   - name: Install system tools 
     dnf:
@@ -200,15 +200,15 @@
 
 
   - name: Install msttcorefonts
-    script: /home/jherrera/Ansible/post-installation/scripts/msttcorefonts.sh
+    script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
     ignore_errors: yes
 
   - name: Install ioscheduler 
-    script: /home/jherrera/Ansible/post-installation/scripts/ioscheduler.sh
+    script: /home/jherrera/post-installation/scripts/ioscheduler.sh
     ignore_errors: yes
 
-  - name: Install color prompt 
-    script: /home/jherrera/Ansible/post-installation/scripts/color_prompt.sh
+  - name: Install Multi Media codecs 
+    script: /home/jherrera/post-installation/scripts/Multimedia.sh
     ignore_errors: yes
 
   - name: Install Gnome themes
@@ -231,10 +231,10 @@
     ignore_errors: yes
     loop:
           - gnome-terminal-nautilus.x86_64
-          - nautilus-image-converter.x86_64
+            #    - nautilus-image-converter.x86_64
           - file-roller-nautilus.x86_64
           - nautilus-sendto.x86_64
-          - nautilus-gsconnect.noarch
+            #    - nautilus-gsconnect.noarch
           - nautilus-extensions.x86_64
 
   - name: Install Powerline Software
@@ -252,4 +252,9 @@
     dnf: 
         name: firewall-config
         state: present
+    ignore_errors: yes
+
+## finetuning desktop system:
+  - name: Configure Wayland on gnome
+    shell: "gsettings set org.gnome.mutter experimental-features \"['scale-monitor-framebuffer']\""
     ignore_errors: yes
