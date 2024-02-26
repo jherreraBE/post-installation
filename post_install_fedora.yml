@@ -94,8 +94,11 @@
             - grub-customizer
             - tldr
             - btop
+            - powertop
             - neovim
-            - flatseal 
+            - tlp
+            - flatseal
+            - zsh
 
   - name: Install smartcard Software
     dnf:
