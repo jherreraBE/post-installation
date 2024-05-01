@@ -99,6 +99,7 @@
             - tlp
             - flatseal
             - zsh
+            - python3-ansible-lint 
 
   - name: Install smartcard Software
     dnf:
@@ -138,15 +139,15 @@
 
 
   - name: Install msttcorefonts
-    script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/msttcorefonts.sh
     ignore_errors: yes
 
   - name: Install ioscheduler 
-    script: /home/jherrera/post-installation/scripts/ioscheduler.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/ioscheduler.sh
     ignore_errors: yes
 
   - name: Install Multi Media codecs 
-    script: /home/jherrera/post-installation/scripts/Multimedia.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/Multimedia.sh
     ignore_errors: yes
 
   - name: Install Gnome themes
