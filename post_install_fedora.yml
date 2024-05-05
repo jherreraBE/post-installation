@@ -1,6 +1,6 @@
 - hosts: localhost
   tasks:
-  - name: Set the  hostname to Thunderbird
+  - name: Set the  hostname to {{hostname}}
     shell: "hostnamectl hostname {{hostname}}.local.net"
     ignore_errors: yes
 
@@ -50,6 +50,15 @@
         - io.github.mimbrero.WhatsAppDesktop
         - com.brave.Browser
 
+  - name: Install nvidia software (dell laptop)
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop:
+          - akmod-nvidia
+          - xorg-x11-drv-nvidia-cuda
+    when: ansible_facts['ansible_product_name'] == "XPS 15 9570"
 
   - name: Install Software
     dnf:
@@ -72,6 +81,8 @@
           - youtube-dl
           - ffmpeg
           - firewall-config
+          - evolution
+          - google-chrome-stable
 
   - name: Install system tools 
     dnf:
@@ -150,6 +161,14 @@
     script: /home/jherrera/Ansible/post-installation/scripts/Multimedia.sh
     ignore_errors: yes
 
+  - name: install  visual code 
+    script: /home/jherrera/Ansible/post-installation/scripts/visualstudiocode.sh
+    ignore_errors: yes
+
+  - name: configure  wayland to use  different resolutions 
+    script: /home/jherrera/Ansible/post-installation/scripts/wayland_config.sh
+    ignore_errors: yes
+
   - name: Install Gnome themes
     dnf:
         name: "{{ item }}"
@@ -197,5 +216,3 @@
   - name:  enable the  GTK icons for the  flatpak software
     shell: "sudo flatpak override --filesystem=$HOME/.icons"
     ignore_errors: yes
-
-
