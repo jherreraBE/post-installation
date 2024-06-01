@@ -1,8 +1,5 @@
 - hosts: localhost
   tasks:
-          #  - name: Install gimp
-          #    snap:
-          #            name: gimp
   - name: Install Graphical Software
     package:
             name: "{{ item }}"
@@ -11,6 +8,8 @@
             - digikam
             - kcolorchooser
             - inkscape
+            - gimp
+
   - name: Install Multi Media Software
     package:
             name: "{{ item }}"
@@ -25,7 +24,6 @@
             - ffmpeg 
             - winff 
             - mencoder
-            - libdvdread4 
             - icedax 
             - easytag 
             - id3tool 
@@ -50,7 +48,6 @@
             - vorbis-tools 
             - id3v2 
             - mpg123 
-            - libflac++6v5:i386 
             - libflac++6v5 
             - libjpeg-progs
             - libdvdcss2 
@@ -58,6 +55,9 @@
             - kdenlive 
             - openshot-qt 
             - amarok
+            - catimg
+            - cmus
+            - krita
 
 
   - name: Install system tools 
@@ -78,6 +78,15 @@
             - speedcrunch
             - kfind
             - kio-gdrive
+            - glances
+            - zsh
+            - fd-find
+            - kup-backup
+            - ranger
+            - ripgrep
+            - skanlite
+            - ttf-mscorefonts-installer
+
   - name: Install Archive Software
     package:
                name: "{{ item }}"
@@ -97,21 +106,21 @@
                - automake
                - autoconf
                - libc6-i386 
-               - libncurses5:i386 
-               - libstdc++6:i386 
                - lib32z1 
-               - libc6:i386 
-               - libbz2-1.0:i386
-               - libqtwebkit4
                - dkms
                - make
                - gcc
-  - name: Install Printer Software
-    package:
-               name: "{{ item }}"
-               state: present
+  - name: Install multiple Flatpak packages
+    community.general.flatpak:
+      name: "{{ item }}"
+      state: present
     loop:
-               - hplip
-               - hplip-gui
-               -  printer-driver-cups-pdf
-               
+        - com.bitwarden.desktop
+        - com.sindresorhus.Caprine
+        - com.spotify.Client
+        - io.github.mimbrero.WhatsAppDesktop
+        - com.brave.Browser
+        - com.visualstudio.code
+        - com.google.Chrome
+        - org.libreoffice.LibreOffice
+        - com.sindresorhus.Caprine
