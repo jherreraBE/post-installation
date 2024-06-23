@@ -1,43 +1,69 @@
 - hosts: localhost
   tasks:
+  - name: Set the  hostname to {{hostname}}
+    shell: "hostnamectl hostname {{hostname}}.local.net"
+    ignore_errors: yes
+
+  - name: Configure Fastest mirror for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "fastestmirror=1"
+        backup: "true"
+
+  - name: Configure Maximum parallel downloads for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "max_parallel_downloads=10"
+        backup: "true"
+
+  - name: Configure usage of delta rpms for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "deltarpm=true"
+        backup: "true"
+
   - name: Enable Fusion rpm repository (free)
     shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
+
   - name: Enable Fusion rpm  repository (non-free)
     shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
+
   - name: check and  update all  the upgradeble packages in the  system
     dnf:
            name: "*"
            state: latest
+
+  - name: Install Multi Media codecs
+    script: /home/jherrera/Ansible/post-installation/scripts/Multimedia.sh
+    ignore_errors: yes
+
   - name: Install google fonts
     dnf:
             name: google-droid-*
             state: present
     ignore_errors: yes
-  - name: Install  filezilla
-    dnf:
-            name: filezilla
-            state: present
-    ignore_errors: yes
-  - name: Install ktorrent 
-    dnf:
-            name: ktorrent
-            state: present
-    ignore_errors: yes
-  - name: Install  gimp
-    dnf:
-            name: gimp
-            state: present
-    ignore_errors: yes
-  - name: Install gimp-data-extras
-    dnf:
-            name: gimp-data-extras
-            state: present
-    ignore_errors: yes
-  - name: Install  thunderbird
-    dnf:
-            name: thunderbird
-            state: present
-    ignore_errors: yes
+
+  - name: Add the flathub flatpak repository remote to the installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: Install multiple Flatpak packages
+    community.general.flatpak:
+      name: "{{ item }}"
+      state: present
+    loop:
+          - com.bitwarden.desktop
+          - com.sindresorhus.Caprine
+          - com.spotify.Client
+          - io.github.mimbrero.WhatsAppDesktop
+          - com.brave.Browser
+          - com.visualstudio.code
+          - com.google.Chrome
+        # - org.libreoffice.LibreOffice
+          - com.sindresorhus.Caprine
+
   - name: Install Multi Media Software
     dnf:
             name: "{{ item }}"
@@ -66,6 +92,25 @@
             - alsa-plugins-pulseaudio
             - youtube-dl
 
+  - name: Install Software
+    dnf:
+            name: "{{ item }}"
+            state: present
+    ignore_errors: yes
+    loop:
+            - filezilla
+            - ktorrent
+            - gimp
+            - gimp-data-extras
+            # - thunderbird
+            - google-droid-*
+            - skanlite
+            - kfind
+            - krita
+            - digikam
+            - kcolorchooser
+            - inkscape
+
   # - name: Install  Printer Software
   #   dnf:
   #           name: "{{ item }}"
@@ -76,7 +121,7 @@
   #           - cups-pdf
   #           - hplip-common
 
-  - name: Install system tools 
+  - name: Install system tools
     dnf:
             name: "{{ item }}"
             state: present
@@ -84,35 +129,36 @@
     loop:
             - htop
             - libcurl
-            - vim  
+            - vim
             - liveusb-creator
+            - gnome-tweak-tool
+            - dconf-editor
             - nmap
-            - inxi.noarch  
+            - inxi.noarch
             - glances
             - neofetch
             - screenfetch
-
-  - name: Install smartcard Software
-    dnf:
-               name: "{{ item }}"
-               state: present
-    ignore_errors: yes
-    loop: 
-               - pcsc-lite.x86_64
-               - pcsc-tools.x86_64
-               - pcsc-lite-ccid.x86_64
-
-  - name: Install Archive Software
-    dnf:
-               name: "{{ item }}"
-               state: present
-    ignore_errors: yes
-    loop: 
-               - cabextract 
-               - lzip
-               - p7zip
-               - p7zip-plugins
-               - unrar  
+            - hunspell-nl
+            - grub-customizer
+            - tldr
+            - btop
+            - powertop
+            - neovim
+            - tlp
+            - flatseal
+            - zsh
+            - python3-ansible-lint
+            - cabextract
+            - lzip
+            - p7zip
+            - p7zip-plugins
+            - unrar
+            - firewall-config
+            - pcsc-lite.x86_64
+            - pcsc-tools.x86_64
+            - pcsc-lite-ccid.x86_64
+            - fd-find
+            -
 
   - name: Install Development libraries and  Tools
     dnf:
@@ -128,33 +174,24 @@
                - gcc-c++
                - icedtea-web
                - java-openjdk
-  
+
+
   - name: Install msttcorefonts
     script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
-    ignore_errors: yes
-
-  - name: Install spotify 
-    script: /home/jherrera/post-installation/scripts/spotify.sh
-    ignore_errors: yes
-          
-  - name: Install skype 
-    script: /home/jherrera/post-installation/scripts/skype.sh
     ignore_errors: yes
 
   - name: Install ioscheduler 
     script: /home/jherrera/post-installation/scripts/ioscheduler.sh
     ignore_errors: yes
 
-  - name: Install color prompt 
-    script: /home/jherrera/post-installation/scripts/color_prompt.sh
-    ignore_errors: yes
+    ## finetuning desktop system:
 
-  - name: Install visual studio code 
-    script: /home/jherrera/post-installation/scripts/visualstudiocode.sh
-    ignore_errors: yes
+  - name: Creates Themes directory in the  homedir
+    ansible.builtin.file:
+      path: "$HOME/.themes"
+      state: directory
 
-  - name: Install Firewalld GUI
-    dnf: 
-            name: firewall-config
-            state: present
-    ignore_errors: yes
+  - name: Creates icons directory in the  homedir
+    ansible.builtin.file:
+      path: "$HOME/.icons"
+      state: directory
