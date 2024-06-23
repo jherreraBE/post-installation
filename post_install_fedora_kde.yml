@@ -37,12 +37,6 @@
     script: /home/jherrera/Ansible/post-installation/scripts/Multimedia.sh
     ignore_errors: yes
 
-  - name: Install google fonts
-    dnf:
-            name: google-droid-*
-            state: present
-    ignore_errors: yes
-
   - name: Add the flathub flatpak repository remote to the installation
     community.general.flatpak_remote:
       name: flathub
@@ -158,7 +152,7 @@
             - pcsc-tools.x86_64
             - pcsc-lite-ccid.x86_64
             - fd-find
-            -
+            - kate
 
   - name: Install Development libraries and  Tools
     dnf:
@@ -177,11 +171,11 @@
 
 
   - name: Install msttcorefonts
-    script: /home/jherrera/post-installation/scripts/msttcorefonts.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/msttcorefonts.sh
     ignore_errors: yes
 
   - name: Install ioscheduler 
-    script: /home/jherrera/post-installation/scripts/ioscheduler.sh
+    script: /home/jherrera/Ansible/post-installation/scripts/ioscheduler.sh
     ignore_errors: yes
 
     ## finetuning desktop system:
@@ -195,3 +189,6 @@
     ansible.builtin.file:
       path: "$HOME/.icons"
       state: directory
+
+# Todo:
+# ksave
