@@ -24,14 +24,17 @@
 
   - name: Enable Fusion rpm repository (free)
     shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
+    ignore_errors: yes
 
   - name: Enable Fusion rpm  repository (non-free)
     shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
+    ignore_errors: yes
 
   - name: check and  update all  the upgradeble packages in the  system
     dnf:
            name: "*"
            state: latest
+    ignore_errors: yes
 
   - name: Install Multi Media codecs
     script: /home/jherrera/Ansible/post-installation/scripts/Multimedia.sh
@@ -57,6 +60,7 @@
           - com.google.Chrome
         # - org.libreoffice.LibreOffice
           - com.sindresorhus.Caprine
+          - io.github.pwr_solaar.solaar
 
   - name: Install Multi Media Software
     dnf:
@@ -189,6 +193,31 @@
     ansible.builtin.file:
       path: "$HOME/.icons"
       state: directory
+
+  - name: Add repository for  Virtualbox 7
+    ansible.builtin.yum_repository:
+      name: virtualbox
+      description: Virtualbox 7 Repo
+      baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
+      enabled: yes
+
+  - name: Import gpg key for Virtualbox
+    ansible.builtin.shell:
+      cmd: "rpm --import https://www.virtualbox.org/download/oracle_vbox.asc"
+
+  - name: Install the latest version of Virtualbox 7
+    ansible.builtin.dnf:
+      name: VirtualBox-7.0
+      state: latest
+
+  - name: Add {{ user }} to vboxusers group
+    ansible.builtin.user:
+      name: "{{ user }}"
+      groups: vboxusers
+      append: yes
+
+
+
 
 # Todo:
 # ksave
