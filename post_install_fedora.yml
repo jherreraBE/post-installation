@@ -110,7 +110,8 @@
             - tlp
             - flatseal
             - zsh
-            - python3-ansible-lint 
+            - python3-ansible-lint
+            - timeshift
 
   - name: Install smartcard Software
     dnf:
@@ -216,3 +217,11 @@
   - name:  enable the  GTK icons for the  flatpak software
     shell: "sudo flatpak override --filesystem=$HOME/.icons"
     ignore_errors: yes
+  
+  - name:  Disable SELinux
+    ansible.builtin.replace:
+      path: /etc/selinux/config
+      regexp: 'SELINUX=enforcing'
+      replace: 'SELINUX=disabled'
+    ignore_errors: yes
+
