@@ -49,6 +49,9 @@
         - dev.aunetx.deezer
         - io.github.mimbrero.WhatsAppDesktop
         - com.brave.Browser
+        - com.synology.SynologyAssistant
+        - io.gitlab.adhami3310.Converter
+        - com.felipekinoshita.Wildcard
 
   - name: Install nvidia software (dell laptop)
     dnf:
