@@ -112,6 +112,7 @@
             - zsh
             - python3-ansible-lint
             - timeshift
+            - btrfs-assistant
 
   - name: Install smartcard Software
     dnf:
