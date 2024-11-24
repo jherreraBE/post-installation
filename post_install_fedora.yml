@@ -114,7 +114,7 @@
             - flatseal
             - zsh
             - python3-ansible-lint
-            - timeshift
+#            - timeshift
             - btrfs-assistant
 
   - name: Install smartcard Software
