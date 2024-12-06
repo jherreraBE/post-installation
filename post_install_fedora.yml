@@ -116,6 +116,7 @@
             - python3-ansible-lint
 #            - timeshift
             - btrfs-assistant
+            - terminus-fonts-console
 
   - name: Install smartcard Software
     dnf:
@@ -228,4 +229,12 @@
       regexp: 'SELINUX=enforcing'
       replace: 'SELINUX=disabled'
     ignore_errors: yes
+
+  - name:  Increase console font
+    ansible.builtin.replace:
+      path: /etc/vconsole.conf
+      regexp: 'FONT="eurlatgr"'
+      replace: 'FONT="ter-132n"'
+    ignore_errors: yes
+    
 
