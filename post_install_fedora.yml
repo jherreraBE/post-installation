@@ -117,6 +117,8 @@
 #            - timeshift
             - btrfs-assistant
             - terminus-fonts-console
+            - wavemon
+            - fzf
 
   - name: Install smartcard Software
     dnf:

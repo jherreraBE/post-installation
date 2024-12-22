@@ -157,6 +157,8 @@
             - pcsc-lite-ccid.x86_64
             - fd-find
             - kate
+            - wavemon
+            - f2f
 
   - name: Install Development libraries and  Tools
     dnf:
