@@ -54,16 +54,16 @@
           - com.bitwarden.desktop
           - com.sindresorhus.Caprine
           - com.spotify.Client
-          - io.github.mimbrero.WhatsAppDesktop
           - com.brave.Browser
-#          - com.visualstudio.code
           - com.google.Chrome
-        # - org.libreoffice.LibreOffice
           - io.github.pwr_solaar.solaar
           - io.github.mimbrero.WhatsAppDesktop
           - com.synology.SynologyAssistant
           - io.gitlab.adhami3310.Converter
           - com.felipekinoshita.Wildcard
+          - com.ktechpit.whatsie
+          - io.github.flattool.Warehouse
+          - io.github.zen_browser.zen
 
 
   - name: Install Multi Media Software

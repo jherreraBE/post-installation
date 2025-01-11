@@ -47,11 +47,13 @@
         - com.sindresorhus.Caprine
         - com.spotify.Client
         - dev.aunetx.deezer
-        - io.github.mimbrero.WhatsAppDesktop
         - com.brave.Browser
         - com.synology.SynologyAssistant
         - io.gitlab.adhami3310.Converter
         - com.felipekinoshita.Wildcard
+        - com.ktechpit.whatsie
+        - io.github.flattool.Warehouse
+        - io.github.zen_browser.zen
 
   - name: Install nvidia software (dell laptop)
     dnf:
