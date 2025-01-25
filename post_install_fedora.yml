@@ -54,6 +54,8 @@
         - com.ktechpit.whatsie
         - io.github.flattool.Warehouse
         - io.github.zen_browser.zen
+        - com.github.ADBeveridge.Raider
+        - com.belmoussaoui.Obfuscate
 
   - name: Install nvidia software (dell laptop)
     dnf:
@@ -121,6 +123,8 @@
             - terminus-fonts-console
             - wavemon
             - fzf
+            - bleachbit
+            - clamtk
 
   - name: Install smartcard Software
     dnf:
