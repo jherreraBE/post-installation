@@ -56,6 +56,7 @@
         - io.github.zen_browser.zen
         - com.github.ADBeveridge.Raider
         - com.belmoussaoui.Obfuscate
+        - io.github.giantpinkrobots.varia
 
   - name: Install nvidia software (dell laptop)
     dnf:
@@ -106,8 +107,8 @@
             - nmap
             - inxi.noarch  
             - glances
-            - neofetch
             - screenfetch
+            - fastfetch
             - hunspell-nl
             - grub-customizer
             - tldr
@@ -125,6 +126,7 @@
             - fzf
             - bleachbit
             - clamtk
+            - cmatrix
 
   - name: Install smartcard Software
     dnf:
