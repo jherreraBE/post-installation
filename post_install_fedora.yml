@@ -127,6 +127,8 @@
             - bleachbit
             - clamtk
             - cmatrix
+            - libheif-freeworld
+            - dnfdragora
 
   - name: Install smartcard Software
     dnf:
