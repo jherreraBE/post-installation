@@ -46,17 +46,18 @@
         - com.mattjakeman.ExtensionManager
         - com.sindresorhus.Caprine
         - com.spotify.Client
-        - dev.aunetx.deezer
         - com.brave.Browser
         - com.synology.SynologyAssistant
         - io.gitlab.adhami3310.Converter
         - com.felipekinoshita.Wildcard
-        - com.ktechpit.whatsie
+        - com.rtosta.zapzap
         - io.github.flattool.Warehouse
         - io.github.zen_browser.zen
         - com.github.ADBeveridge.Raider
         - com.belmoussaoui.Obfuscate
         - io.github.giantpinkrobots.varia
+        - com.surfshark.Surfshark
+        - io.gpt4all.gpt4all.Locale
 
   - name: Install nvidia software (dell laptop)
     dnf:
@@ -115,7 +116,6 @@
             - btop
             - powertop
             - neovim
-            - tlp
             - flatseal
             - zsh
             - python3-ansible-lint
@@ -127,7 +127,6 @@
             - bleachbit
             - clamtk
             - cmatrix
-            - libheif-freeworld
             - dnfdragora
 
   - name: Install smartcard Software
