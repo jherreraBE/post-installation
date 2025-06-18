@@ -57,8 +57,7 @@
           - com.brave.Browser
           - com.google.Chrome
           - io.github.pwr_solaar.solaar
-          - io.github.mimbrero.WhatsAppDesktop
-          - com.synology.SynologyAssistant
+         # - com.synology.SynologyAssistant
           - io.gitlab.adhami3310.Converter
           - com.felipekinoshita.Wildcard
           - com.ktechpit.whatsie
@@ -207,13 +206,6 @@
     ansible.builtin.file:
       path: "$HOME/.icons"
       state: directory
-
-  - name:  Disable SELinux
-    ansible.builtin.replace:
-      path: /etc/selinux/config
-      regexp: 'SELINUX=enforcing'
-      replace: 'SELINUX=disabled'
-    ignore_errors: yes
 
   - name:  Increase console font
     ansible.builtin.replace:
