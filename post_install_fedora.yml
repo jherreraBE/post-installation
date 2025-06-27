@@ -1,4 +1,13 @@
 - hosts: localhost
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    hostname: "fedora"
+  vars_prompt:
+    - name: "hostname"
+      prompt: "Enter the hostname for the system"
+      private: no 
   tasks:
   - name: Set the  hostname to {{hostname}}
     shell: "hostnamectl hostname {{hostname}}.local.net"
@@ -27,7 +36,7 @@
 
   - name: Enable Fusion rpm  repository (non-free)
     shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
-    
+
   - name: check and  update all  the upgradeble packages in the  system
     dnf:
            name: "*"
@@ -47,7 +56,6 @@
         - com.sindresorhus.Caprine
         - com.spotify.Client
         - com.brave.Browser
-        - com.synology.SynologyAssistant
         - io.gitlab.adhami3310.Converter
         - com.felipekinoshita.Wildcard
         - com.rtosta.zapzap
@@ -117,7 +125,6 @@
             - powertop
             - neovim
             - flatseal
-            - zsh
             - python3-ansible-lint
 #            - timeshift
             - btrfs-assistant
@@ -176,6 +183,14 @@
 
   - name: Install Multi Media codecs 
     script: /home/jherrera/Ansible/post-installation/scripts/Multimedia.sh
+    ignore_errors: yes
+  
+  - name: "Enabling OpenH264 codec..." 
+    shell: "dnf config-manager setopt fedora-cisco-openh264.enabled=1"
+    ignore_errors: yes
+
+  - name: " Replacing ffmpeg-free with full ffmpeg..."
+    shell: "dnf swap ffmpeg-free ffmpeg --allowerasing -y"
     ignore_errors: yes
 
   - name: install  visual code 
@@ -247,5 +262,55 @@
       regexp: 'FONT="eurlatgr"'
       replace: 'FONT="ter-132n"'
     ignore_errors: yes
-    
 
+# zsh configuration
+  - name: Install zsh
+    dnf:
+      name: zsh
+      state: present
+
+  - name: Set zsh as default shell
+    user:
+      name: "{{ ansible_user }}"
+      shell: /bin/zsh  
+    
+# zshrc configuration
+  - name: Copy zshrc file to home directory
+    copy:
+      src: /home/jherrera/Ansible/post-installation/files/zshrc
+      dest: /home/{{ ansible_user }}/.zshrc
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: '0644'
+      backup: yes
+
+# git clone plugins
+  - name: Clone zsh-autosuggestions plugin repository
+    ansible.builtin.git:
+      repo: "https://github.com/zsh-users/zsh-autosuggestions" 
+      dest: /home/{{ ansible_user }}/.zsh/plugins/zsh-autosuggestions
+      version: master
+    
+  - name: Clone zsh-syntax-highlighting plugin repository
+    ansible.builtin.git:
+      repo: "https://github.com/zsh-users/zsh-syntax-highlighting" 
+      dest: /home/{{ ansible_user }}/.zsh/plugins/zsh-syntax-highlighting
+      version: master
+
+  - name: Clone zsh-completions plugin repository
+    ansible.builtin.git:
+      repo: "https://github.com/zsh-users/zsh-completions" 
+      dest: /home/{{ ansible_user }}/.zsh/plugins/zsh-completions
+      version: master
+
+  - name:  owner and group for zsh plugins
+    ansible.builtin.file:
+      path: /home/{{ ansible_user }}/.zsh/plugins
+      state: directory
+      recurse: yes
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      
+
+  
+    
