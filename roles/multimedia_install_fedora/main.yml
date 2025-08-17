@@ -56,6 +56,11 @@
         name: intel-media-driver
         state: present
 
+    # === Enabbling OopenH264 Codec... ===
+    - name: "Enabling OpenH264 codec..." 
+      shell: "dnf config-manager setopt fedora-cisco-openh264.enabled=1"
+      ignore_errors: yes
+
     # === Extra Multimedia Software ===
     - name: Install Extra Multimedia Software
       dnf:

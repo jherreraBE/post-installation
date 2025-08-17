@@ -33,10 +33,6 @@
       state: present
       flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-  - name: configure  wayland to use  different resolutions 
-    script: /home/jherrera/Ansible/post-installation/scripts/wayland_config.sh
-    ignore_errors: yes 
-
   ## finetuning desktop system:
 
   - name: Creates Themes directory in the  homedir
