@@ -48,7 +48,7 @@
       ansible.builtin.dnf:
         name: "@Multimedia"
         state: latest
-        with_optional: yes
+        #with_optional: yes
 
     # === Intel Media Driver ===
     - name: Install Intel media driver
