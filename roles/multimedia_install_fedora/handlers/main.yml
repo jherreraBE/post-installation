@@ -1,3 +1,4 @@
+---  
   handlers:
     - name: remove ffmpeg-free
       ansible.builtin.dnf:
