@@ -1,0 +1,19 @@
+- hosts: localhost
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    hostname: "fedora"
+  vars_prompt:
+    - name: "hostname"
+      prompt: "Enter the hostname for the system"
+      private: no 
+  tasks:
+  - name: Set the  hostname to {{hostname}}
+    shell: "hostnamectl hostname {{hostname}}.local.net"
+    ignore_errors: yes
+  roles:
+    - role: sys_config_fedora
+    - role: software_install_fedora
+    - role: shell_config_fedora
+    

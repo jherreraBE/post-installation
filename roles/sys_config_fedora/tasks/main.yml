@@ -1,0 +1,38 @@
+  - name: Configure Fastest mirror for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "fastestmirror=1"
+        backup: "true"
+
+  - name: Configure Maximum parallel downloads for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "max_parallel_downloads=10"
+        backup: "true"
+
+  - name: Configure usage of delta rpms for DNF
+    lineinfile:
+        path: /etc/dnf/dnf.conf
+        line: "deltarpm=true"
+        backup: "true"
+
+  - name: Enable Fusion rpm repository (free)
+    shell: "dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y"
+
+  - name: Enable Fusion rpm  repository (non-free)
+    shell: "dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y"
+
+  - name: check and  update all  the upgradeble packages in the  system
+    dnf:
+           name: "*"
+           state: latest
+
+  - name: Add the flathub flatpak repository remote to the installation
+    community.general.flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+  - name: configure  wayland to use  different resolutions 
+    script: /home/jherrera/Ansible/post-installation/scripts/wayland_config.sh
+    ignore_errors: yes 
