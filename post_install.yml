@@ -14,6 +14,5 @@
     ignore_errors: yes
   roles:
     - role: sys_config_fedora
-    - role: software_install_fedora
-    - role: shell_config_fedora
-    
+    #- role: software_install_fedora
+    #- role: shell_config_fedora

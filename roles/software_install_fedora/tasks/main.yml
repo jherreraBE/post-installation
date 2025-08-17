@@ -1,0 +1,190 @@
+  - name: Install Software
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop:
+          - google-droid-*
+          - filezilla
+          - deluge
+          - gimp
+          - pinta
+          - gimp-data-extras
+          - transmission
+          - firewall-config
+          - evolution
+          - google-chrome-stable
+
+  - name: Install Multimedia
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop:
+          - gstreamer1-plugins-bad-free
+          - gstreamer1-plugins-good
+          - gstreamer1-plugins-ugly
+          - gstreamer1-libav
+          - gstreamer1-plugins-bad-free-extras
+          - gstreamer1-plugins-base-tools
+          - gstreamer1-plugins-bad-free-extras
+          - gstreamer1-plugins-bad-freeworld
+          - gstreamer1-plugins-good-extras
+          - gstreamer1-plugins-ugly-free
+          - gstreamer1-plugins-ugly-freeworld
+          - youtube-dl
+          - audacious.x86_64
+          - audacity-freeworld
+          - vlc
+          - audacious-plugins-freeworld.x86_64
+          - alsa-plugins-pulseaudio
+
+  - name: "Enabling OpenH264 codec..." 
+    shell: "dnf config-manager setopt fedora-cisco-openh264.enabled=1"
+    ignore_errors: yes
+
+  - name: " Replacing ffmpeg-free with full ffmpeg..."
+    shell: "dnf swap ffmpeg-free ffmpeg --allowerasing -y"
+    ignore_errors: yes
+
+ 
+  - name: Update multimedia group without weak deps and excluding a package
+    ansible.builtin.dnf:
+      name: "@multimedia"
+      state: latest
+      install_weak_deps: no
+      exclude: PackageKit-gstreamer-plugin
+
+  - name: Install system tools 
+    dnf:
+            name: "{{ item }}"
+            state: present
+    ignore_errors: yes
+    loop:
+            - htop
+            - libcurl
+            - vim  
+            - liveusb-creator
+            - gnome-tweak-tool
+            - dconf-editor 
+            - nmap
+            - inxi.noarch  
+            - glances
+            - screenfetch
+            - fastfetch
+            - hunspell-nl
+            - tldr
+            - btop
+            - powertop
+            - neovim
+            - flatseal
+            - python3-ansible-lint
+#            - timeshift
+            - btrfs-assistant
+            - terminus-fonts-console
+            - wavemon
+            - fzf
+            - bleachbit
+            - clamtk
+            - cmatrix
+            - dnfdragora
+
+  - name: Install system tools 
+    dnf:
+            name: "{{ item }}"
+            state: present
+    ignore_errors: yes
+    loop:
+            - htop
+            - libcurl
+            - vim  
+            - liveusb-creator
+            - gnome-tweak-tool
+            - dconf-editor 
+            - nmap
+            - inxi.noarch  
+            - glances
+            - screenfetch
+            - fastfetch
+            - hunspell-nl
+            - tldr
+            - btop
+            - powertop
+            - neovim
+            - flatseal
+            - python3-ansible-lint
+#            - timeshift
+            - btrfs-assistant
+            - terminus-fonts-console
+            - wavemon
+            - fzf
+            - bleachbit
+            - clamtk
+            - cmatrix
+            - dnfdragora
+            - pcsc-lite.x86_64
+            - pcsc-tools.x86_64
+            - pcsc-lite-ccid.x86_64
+            - cabextract 
+            - lzip
+            - p7zip
+            - p7zip-plugins
+            - unrar  
+ 
+  - name: Install Development libraries and  Tools
+    dnf:
+               name: "{{ item }}"
+               state: present
+    ignore_errors: yes
+    loop:
+               - kernel-devel
+               - dkms
+               - kernel-headers
+               - make
+               - gcc
+               - gcc-c++
+               - java-openjdk
+
+  - name: Install Gnome themes
+    dnf:
+        name: "{{ item }}"
+        state: present
+    ignore_errors: yes
+    loop:
+         - arc-theme
+         - gtk-murrine-engine
+         - gtk-unico-engine
+         - numix-icon-theme
+         - numix-icon-theme-circle
+         - numix-gtk-theme
+
+  - name: Install Nautilius (Files) extentions 
+    dnf:
+        name: "{{ item }}"
+        state: present
+    ignore_errors: yes
+    loop:
+          - gnome-terminal-nautilus.x86_64
+          - file-roller-nautilus.x86_64
+          - nautilus-gsconnect.noarch
+          - nautilus-extensions.x86_64
+
+# Flatpak Software Installation 
+  - name: Install multiple Flatpak packages
+    community.general.flatpak:
+      name:
+        - com.bitwarden.desktop
+        - com.mattjakeman.ExtensionManager
+        - com.sindresorhus.Caprine
+        - com.spotify.Client
+        - com.brave.Browser
+        - io.gitlab.adhami3310.Converter
+        - com.felipekinoshita.Wildcard
+        - com.rtosta.zapzap
+        - io.github.flattool.Warehouse
+        - io.github.zen_browser.zen
+        - com.github.ADBeveridge.Raider
+        - com.belmoussaoui.Obfuscate
+        - io.github.giantpinkrobots.varia
+        - com.surfshark.Surfshark
+        - io.gpt4all.gpt4all.Locale
