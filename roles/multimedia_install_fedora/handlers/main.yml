@@ -1,7 +1,6 @@
----  
-  handlers:
-    - name: remove ffmpeg-free
-      ansible.builtin.dnf:
-        name: ffmpeg-free
-        state: absent
-        allowerasing: yes
+---
+- name: remove ffmpeg-free
+  ansible.builtin.dnf:
+    name: ffmpeg-free
+    state: absent
+    allowerasing: yes
