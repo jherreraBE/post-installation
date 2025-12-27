@@ -1,0 +1,25 @@
+
+# Flatpak Software Installation 
+  - name: Install multiple Flatpak packages
+    community.general.flatpak:
+      name:
+        - com.bitwarden.desktop
+        - com.mattjakeman.ExtensionManager
+        - com.sindresorhus.Caprine
+        - com.spotify.Client
+        - com.brave.Browser
+        - io.gitlab.adhami3310.Converter
+        - com.felipekinoshita.Wildcard
+        - com.rtosta.zapzap
+        - io.github.flattool.Warehouse
+        - io.github.zen_browser.zen
+        - com.github.ADBeveridge.Raider
+        - com.belmoussaoui.Obfuscate
+        - io.github.giantpinkrobots.varia
+        - com.surfshark.Surfshark
+        - io.gpt4all.gpt4all.Locale
+        - be.alexandervanhee.gradia
+        - io.github.alainm23.planify
+        - io.github.wartybix.Constrict
+        - io.github.qwersyk.Newelle
+        

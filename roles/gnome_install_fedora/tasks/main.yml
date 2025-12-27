@@ -1,0 +1,80 @@
+  - name: Install Software for Gnome Desktop
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop:
+          - google-droid-*
+          - filezilla
+          - deluge
+          - gimp
+          - pinta
+          - gimp-data-extras
+          - transmission
+          - firewall-config
+          - evolution
+          - google-chrome-stable
+          - liveusb-creator
+          - gnome-tweak-tool
+          - dconf-editor
+          - dnfdragora 
+
+  - name: Install Gnome themes
+    dnf:
+        name: "{{ item }}"
+        state: present
+    ignore_errors: yes
+    loop:
+         - arc-theme
+         - gtk-murrine-engine
+         - gtk-unico-engine
+         - numix-icon-theme
+         - numix-icon-theme-circle
+         - numix-gtk-theme
+
+  - name: Install Nautilius (Files) extentions 
+    dnf:
+        name: "{{ item }}"
+        state: present
+    ignore_errors: yes
+    loop:
+          - gnome-terminal-nautilus.x86_64
+          - file-roller-nautilus.x86_64
+          - nautilus-gsconnect.noarch
+          - nautilus-extensions.x86_64
+
+  - name: Install image and picture viewers extentions 
+    dnf:
+        name: "{{ item }}"
+        state: present
+    ignore_errors: yes
+    loop:
+          - glycin-thumbnailers.x86_64
+          - totem-video-thumbnailer.x86_64
+          - ffmpegthumbnailer.x86_64
+          - libopenraw.x86_64
+          - heif-pixbuf-loader.x86_64
+          - libheif-freeworld.x86_64
+
+  - name: Creates Themes directory in the  homedir
+    ansible.builtin.file:
+      path: "$HOME/.themes"
+      state: directory
+
+  - name: Creates icons directory in the  homedir
+    ansible.builtin.file:
+      path: "$HOME/.icons"
+      state: directory
+      
+  - name: Configure Wayland on gnome
+    shell: "gsettings set org.gnome.mutter experimental-features \"['scale-monitor-framebuffer']\""
+    ignore_errors: yes
+  
+  - name:  enable the  GTK themes for the  flatpak software
+    shell: "sudo flatpak override --filesystem=$HOME/.theme"
+    ignore_errors: yes
+
+  - name:  enable the  GTK icons for the  flatpak software
+    shell: "sudo flatpak override --filesystem=$HOME/.icons"
+    ignore_errors: yes
+

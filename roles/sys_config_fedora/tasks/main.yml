@@ -33,30 +33,7 @@
       state: present
       flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-  ## finetuning desktop system:
-
-  - name: Creates Themes directory in the  homedir
-    ansible.builtin.file:
-      path: "$HOME/.themes"
-      state: directory
-
-  - name: Creates icons directory in the  homedir
-    ansible.builtin.file:
-      path: "$HOME/.icons"
-      state: directory
-      
-  - name: Configure Wayland on gnome
-    shell: "gsettings set org.gnome.mutter experimental-features \"['scale-monitor-framebuffer']\""
-    ignore_errors: yes
-  
-  - name:  enable the  GTK themes for the  flatpak software
-    shell: "sudo flatpak override --filesystem=$HOME/.theme"
-    ignore_errors: yes
-
-  - name:  enable the  GTK icons for the  flatpak software
-    shell: "sudo flatpak override --filesystem=$HOME/.icons"
-    ignore_errors: yes
-  
+    
   # - name:  Disable SELinux
   #   ansible.builtin.replace:
   #     path: /etc/selinux/config
@@ -70,3 +47,5 @@
       regexp: 'FONT="eurlatgr"'
       replace: 'FONT="ter-132n"'
     ignore_errors: yes
+
+  

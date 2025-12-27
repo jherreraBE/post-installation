@@ -1,0 +1,19 @@
+  - name: Install Software for KDE Desktop
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop:
+          - google-droid-*
+          - filezilla
+          - deluge
+          - gimp
+          - pinta
+          - gimp-data-extras
+          - transmission
+          - firewall-config
+          - evolution
+          - google-chrome-stable
+
+
+        
