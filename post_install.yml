@@ -12,9 +12,42 @@
   - name: Set the  hostname to {{hostname}}
     shell: "hostnamectl hostname {{hostname}}.local.net"
     ignore_errors: yes
-  roles:
-    - role: sys_config_fedora
-    - role: multimedia_install_fedora
-    - role: gnome_install_fedora
-    - role: flatpak_install_fedora
-#    - role: shell_config_fedora
+
+  - name: Run System Configuration specific role
+    include_role:
+      name: sys_config_fedora
+
+  - name: Run Multimedia Installation specific role
+    include_role:
+      name: multimedia_install_fedora
+
+  - name: Check for GNOME
+    stat:
+      path: /usr/bin/gnome-shell
+    register: gnome_check
+
+  - name: Check for KDE
+    stat:
+      path: /usr/bin/plasmashell
+    register: kde_check
+
+  - name: Run GNOME specific role
+    include_role:
+      name: gnome_install_fedora
+    when: gnome_check.stat.exists
+
+  - name: Run KDE specific role
+    include_role:
+      name: kde_install_fedora
+    when: kde_check.stat.exists
+  
+  - name: Run System Configuration specific role
+    include_role:
+      name: flatpak_install_fedora
+      
+      #   roles:
+#     - role: sys_config_fedora
+#     - role: multimedia_install_fedora
+#     - role: gnome_install_fedora
+#     - role: flatpak_install_fedora
+# #    - role: shell_config_fedora
