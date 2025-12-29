@@ -27,7 +27,7 @@
     loop:
          - arc-theme
          - gtk-murrine-engine
-         - gtk-unico-engine
+         - gtk-unico-engine.x86_64
          - numix-icon-theme
          - numix-icon-theme-circle
          - numix-gtk-theme
@@ -50,11 +50,9 @@
     ignore_errors: yes
     loop:
           - glycin-thumbnailer.x86_64
-          - gnome-raw-thumbnailer.x86_64
           - totem-video-thumbnailer.x86_64
           - ffmpegthumbnailer.x86_64
           - libopenraw.x86_64
-          - heif-pixbuf-loader.x86_64
           - libheif-freeworld.x86_64
 
   - name: Creates Themes directory in the  homedir
