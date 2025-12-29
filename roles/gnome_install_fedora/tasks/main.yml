@@ -49,7 +49,8 @@
         state: present
     ignore_errors: yes
     loop:
-          - glycin-thumbnailers.x86_64
+          - glycin-thumbnailer.x86_64
+          - gnome-raw-thumbnailer.x86_64
           - totem-video-thumbnailer.x86_64
           - ffmpegthumbnailer.x86_64
           - libopenraw.x86_64
