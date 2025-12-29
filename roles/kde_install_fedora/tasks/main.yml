@@ -4,16 +4,16 @@
           state: present
     ignore_errors: yes
     loop:
-          - google-droid-*
-          - filezilla
-          - deluge
-          - gimp
-          - pinta
-          - gimp-data-extras
-          - transmission
-          - firewall-config
-          - evolution
-          - google-chrome-stable
+          - ktorrent
+          - skanlite
+          - kfind
+          - krita
+          - digikam
+          - kcolorchooser
+          - inkscape
+          - kate
+          
+
 
 
         
