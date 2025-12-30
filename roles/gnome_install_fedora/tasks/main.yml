@@ -27,7 +27,7 @@
     loop:
          - arc-theme
          - gtk-murrine-engine
-         - gtk-unico-engine.x86_64
+         # - gtk-unico-engine.x86_64
          - numix-icon-theme
          - numix-icon-theme-circle
          - numix-gtk-theme
