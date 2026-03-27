@@ -1,0 +1,7 @@
+gnome_extensions_to_install:
+      - name: "Dash to Panel"
+        url: "https://github.com/home-sweet-gnome/dash-to-panel"
+      - name: "ArcMenu"
+        url: "https://gitlab.com/ArcMenu/ArcMenu"
+      - name: "Just Perfection"
+        url: "https://gitlab.gnome.org/joshue.rios/just-perfection-gnome-shell-extension"
