@@ -77,3 +77,35 @@
     shell: "sudo flatpak override --filesystem=$HOME/.icons"
     ignore_errors: yes
 
+# install gnome extensiions and activare them 
+  - name: Install Gnome Extensions
+    shell: "gnome-extensions install {{ item }}"
+    ignore_errors: yes
+    loop:
+          - dash-to-dock
+          - user-theme
+          - desktop-icons-ng
+          - gnome-shell-extension-appindicator 
+          - blur-my-shell
+          - appindicatorsupport
+          - clipboard-indicator
+          - just-perfection-desktop
+          - burn-my-windows
+          - lockkeys
+          - compiz-alike-magic-lamp-effect
+          - Vitals
+          - azwallpaper
+          - openbar
+          - arcmenu
+          - search-light
+          - rounded-window-corners
+          - extension-list
+          - dash2dock-lite@icedman.github.com
+          - apps-menu@gnome-shell-extensions.gcampax.github.com
+          - background-logo@fedorahosted.org
+          - launch-new-instance@gnome-shell-extensions.gcampax.github.com
+          - places-menu@gnome-shell-extensions.gcampax.github.com
+          - window-list@gnome-shell-extensions.gcampax.github.com
+          - gsconnect
+          - forge
+
