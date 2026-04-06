@@ -35,9 +35,11 @@
         chdir: /tmp/Tela-icon-theme
         cmd: ./install.sh -d /usr/share/icons
 
-    handlers:
-    - name: Refresh font cache
-      ansible.builtin.command: fc-cache -fv
+  - name: Refresh font cache
+    ansible.builtin.command: fc-cache -fv
+
+  - name: Refresh KDE cache
+    ansible.builtin.command: kbuildsycoca5
 
 
         
