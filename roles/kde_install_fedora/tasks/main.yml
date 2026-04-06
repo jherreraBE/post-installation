@@ -32,8 +32,8 @@
 
   - name: Run Tela install script
     ansible.builtin.command:
-       chdir: /tmp/Tela-icon-theme
-       cmd: ./install.sh -d /usr/share/icons
+        chdir: /tmp/Tela-icon-theme
+        cmd: ./install.sh -d /usr/share/icons
 
     handlers:
     - name: Refresh font cache
