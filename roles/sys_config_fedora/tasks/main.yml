@@ -74,7 +74,7 @@
 #        - timeshift
          - btrfs-assistant
          - terminus-fonts-console
-         - wavemon
+#         - wavemon
          - fzf
          - bleachbit
          - clamtk
@@ -120,10 +120,13 @@
  ## install tgpt 
   - name: Download tgpt binary
     ansible.builtin.get_url:
-      url: "https://raw.githubusercontent.com/a9n0n/tgpt/main/install.sh"
-      dest: "/tmp/tgpt_install.sh"
+      url: "https://github.com/a9n0n/tgpt/releases/latest/download/tgpt-linux-amd64"
+      dest: /usr/local/bin/tgpt
       mode: '0755'
+      owner: root
+      group: root
 
+ 
   - name: Execute installation script
     ansible.builtin.shell: curl -sSL https://raw.githubusercontent.com/a9n0n/tgpt/main/install.sh | bash -s -- /usr/local/bin
     args:
