@@ -59,8 +59,6 @@
          - libcurl
          - vim  
          - liveusb-creator
-         - gnome-tweak-tool
-         - dconf-editor 
          - nmap
          - inxi.noarch  
          - glances
@@ -118,3 +116,24 @@
          - gcc
          - gcc-c++
          - java-openjdk
+
+ ## install tgpt 
+  - name: Download tgpt binary
+    ansible.builtin.get_url:
+      url: "https://raw.githubusercontent.com/a9n0n/tgpt/main/install.sh"
+      dest: "/tmp/tgpt_install.sh"
+      mode: '0755'
+
+  - name: Execute installation script
+    ansible.builtin.shell: curl -sSL https://raw.githubusercontent.com/a9n0n/tgpt/main/install.sh | bash -s -- /usr/local/bin
+    args:
+      creates: "{{ install_path }}"
+
+  - name: Verify tgpt installation
+    ansible.builtin.command: tgpt --version
+    register: tgpt_check
+    changed_when: false
+
+  - name: Print version
+    ansible.builtin.debug:
+      msg: "Successfully installed: {{ tgpt_check.stdout }}"
