@@ -1,1 +1,57 @@
 ---
+    - name: Set Zsh as default shell for current user
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        shell: /usr/bin/zsh
+
+    - name: Create Zsh and Font directories
+      become: no
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - "{{ user_home }}/.zsh/plugins"
+        - "{{ user_home }}/.local/share/fonts"
+        - "{{ user_home }}/.config"
+
+    - name: Clone Zsh plugins
+      become: no
+      ansible.builtin.git:
+        repo: "{{ item.repo }}"
+        dest: "{{ user_home }}/.zsh/plugins/{{ item.name }}"
+      loop:
+        - { name: 'zsh-autosuggestions', repo: 'https://github.com/zsh-users/zsh-autosuggestions' }
+        - { name: 'zsh-syntax-highlighting', repo: 'https://github.com/zsh-users/zsh-syntax-highlighting' }
+        - { name: 'zsh-completions', repo: 'https://github.com/zsh-users/zsh-completions' }
+
+    - name: Configure .zshrc
+      become: no
+      ansible.builtin.blockinfile:
+        path: "{{ user_home }}/.zshrc"
+        create: yes
+        block: |
+          fpath+=~/.zsh/plugins/zsh-completions
+          source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+          source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+          autoload -Uz compinit && compinit
+          eval "$(starship init zsh)"
+
+    - name: Install FiraCode Nerd Font
+      become: no
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
+        dest: "{{ user_home }}/.local/share/fonts"
+        remote_src: yes
+      notify: Refresh font cache
+
+    - name: Install Starship Prompt
+      ansible.builtin.shell: curl -sS https://starship.rs/install.sh | sh -s -- -y
+      args:
+        creates: /usr/local/bin/starship
+
+    - name: Apply Starship preset
+      become: no
+      ansible.builtin.shell: starship preset catppuccin-powerline -o {{ user_home }}/.config/starship.toml
+      args:
+        creates: "{{ user_home }}/.config/starship.toml"

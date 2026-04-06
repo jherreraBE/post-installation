@@ -13,7 +13,31 @@
           - inkscape
           - kate
           
+  - name: Install Orchis KDE theme
+    become: no
+    ansible.builtin.git:
+        repo: https://github.com/vinceliuice/Orchis-kde.git
+        dest: /tmp/Orchis-kde
+    
+  - name: Run Orchis install script
+    become: no
+    ansible.builtin.command:
+        chdir: /tmp/Orchis-kde
+        cmd: ./install.sh
 
+  - name: Install Tela Icon Theme (System-wide)
+    ansible.builtin.git:
+        repo: https://github.com/vinceliuice/Tela-icon-theme.git
+        dest: /tmp/Tela-icon-theme
+
+  - name: Run Tela install script
+    ansible.builtin.command:
+       chdir: /tmp/Tela-icon-theme
+       cmd: ./install.sh -d /usr/share/icons
+
+    handlers:
+    - name: Refresh font cache
+      ansible.builtin.command: fc-cache -fv
 
 
         

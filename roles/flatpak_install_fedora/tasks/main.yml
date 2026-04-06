@@ -5,7 +5,7 @@
       name:
        - app.drey.EarTag
        - app.zen_browser.zen
-       - be.alexandervanhee.gradia
+       
        - com.beavernotes.beavernotes
        - com.belmoussaoui.Obfuscate
        - com.bitwarden.desktop
@@ -14,7 +14,6 @@
        - com.github.ADBeveridge.Raider
        - com.github.unrud.VideoDownloader
        - com.jgraph.drawio.desktop
-       - com.mattjakeman.ExtensionManager
        - com.rtosta.zapzap
        - com.spotify.Client
        - com.surfshark.Surfshark
@@ -31,7 +30,6 @@
        - io.gitlab.adhami3310.Impression
        - io.gitlab.librewolf-community
        - io.gpt4all.gpt4all.Locale
-       - io.missioncenter.MissionCenter
        - md.obsidian.Obsidian 
        - net.code_industry.MasterPDFEditor 
        - org.angryip.ipscan
@@ -41,3 +39,25 @@
        - app.drey.Dialect
        - com.artemchep.keyguard
        - io.github.kolunmi.Bazaar
+
+# ## Flatpak Software Installation  specific for KDE desktop environment
+#   - name: Install multiple Flatpak packages for KDE desktop environment
+#     community.general.flatpak:
+#       name:
+#        - org.kde.kdenlive
+#        - org.kde.krita
+#        - org.kde.digikam
+#        - org.kde.kcolorchooser
+#        - org.kde.inkscape
+#        - org.kde.kate
+#     when: gnome_check.stat.exists
+
+
+## Flatpak Software Installation  specific for Gnome desktop environment
+  - name: Install multiple Flatpak packages for Gnome desktop environment
+    community.general.flatpak:
+      name:
+       - com.mattjakeman.ExtensionManager
+       - io.missioncenter.MissionCenter
+       - be.alexandervanhee.gradia
+    when: kde_check.stat.exists
