@@ -48,4 +48,73 @@
       replace: 'FONT="ter-132n"'
     ignore_errors: yes
 
-  
+  ## base  software installation
+  - name: Install base software packages
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop: 
+         - htop
+         - libcurl
+         - vim  
+         - liveusb-creator
+         - gnome-tweak-tool
+         - dconf-editor 
+         - nmap
+         - inxi.noarch  
+         - glances
+         - screenfetch
+         - fastfetch
+         - hunspell-nl
+         - tldr
+         - btop
+         - powertop
+         - neovim
+         - flatseal
+         - python3-ansible-lint
+#        - timeshift
+         - btrfs-assistant
+         - terminus-fonts-console
+         - wavemon
+         - fzf
+         - bleachbit
+         - clamtk
+         - cmatrix
+         - dnfdragora
+         
+  - name: Install smartcard Software
+    dnf:
+           name: "{{ item }}"
+           state: present
+    ignore_errors: yes
+    loop: 
+         - pcsc-lite.x86_64
+         - pcsc-tools.x86_64
+         - pcsc-lite-ccid.x86_64
+
+  - name: Install Archive Software
+    dnf:
+          name: "{{ item }}"
+          state: present
+    ignore_errors: yes
+    loop: 
+         - cabextract 
+         - lzip
+         - p7zip
+         - p7zip-plugins
+         - unrar  
+
+  - name: Install Development libraries and  Tools
+    dnf:
+         name: "{{ item }}"
+         state: present
+    ignore_errors: yes
+    loop:
+         - kernel-devel
+         - dkms
+         - kernel-headers
+         - make
+         - gcc
+         - gcc-c++
+         - java-openjdk
