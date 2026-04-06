@@ -117,26 +117,26 @@
          - gcc-c++
          - java-openjdk
 
- ## install tgpt 
-  - name: Download tgpt binary
-    ansible.builtin.get_url:
-      url: "https://github.com/a9n0n/tgpt/releases/latest/download/tgpt-linux-amd64"
-      dest: /usr/local/bin/tgpt
-      mode: '0755'
-      owner: root
-      group: root
+#  ## install tgpt 
+#   - name: Download tgpt binary
+#     ansible.builtin.get_url:
+#       url: "https://github.com/a9n0n/tgpt/releases/latest/download/tgpt-linux-amd64"
+#       dest: /usr/local/bin/tgpt
+#       mode: '0755'
+#       owner: root
+#       group: root
 
  
-  - name: Execute installation script
-    ansible.builtin.shell: curl -sSL https://raw.githubusercontent.com/a9n0n/tgpt/main/install.sh | bash -s -- /usr/local/bin
-    args:
-      creates: "{{ install_path }}"
+#   - name: Execute installation script
+#     ansible.builtin.shell: curl -sSL https://raw.githubusercontent.com/a9n0n/tgpt/main/install.sh | bash -s -- /usr/local/bin
+#     args:
+#       creates: "{{ install_path }}"
 
-  - name: Verify tgpt installation
-    ansible.builtin.command: tgpt --version
-    register: tgpt_check
-    changed_when: false
+#   - name: Verify tgpt installation
+#     ansible.builtin.command: tgpt --version
+#     register: tgpt_check
+#     changed_when: false
 
-  - name: Print version
-    ansible.builtin.debug:
-      msg: "Successfully installed: {{ tgpt_check.stdout }}"
+#   - name: Print version
+#     ansible.builtin.debug:
+#       msg: "Successfully installed: {{ tgpt_check.stdout }}"
