@@ -5,7 +5,7 @@
       name:
        - app.drey.EarTag
        - app.zen_browser.zen
-       
+       - com.brave.Browser
        - com.beavernotes.beavernotes
        - com.belmoussaoui.Obfuscate
        - com.bitwarden.desktop

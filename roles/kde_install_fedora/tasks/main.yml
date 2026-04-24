@@ -12,6 +12,7 @@
           - kcolorchooser
           - inkscape
           - kate
+          - google-chrome-stable
           
   - name: Install Orchis KDE theme
     become: no
