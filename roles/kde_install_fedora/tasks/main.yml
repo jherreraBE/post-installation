@@ -13,6 +13,7 @@
           - inkscape
           - kate
           - google-chrome-stable
+          - kvantum
           
   - name: Install Orchis KDE theme
     become: no
